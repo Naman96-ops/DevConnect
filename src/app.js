@@ -1,30 +1,29 @@
 const express = require('express');
 
+const {adminAuth,userAuth} =require("./middlewares/auth.js")
+
+
 const app = express();
 
-app.use("/user",(req,res)=>{
-    res.send("HAHAHAHA")
+app.use("/admin",adminAuth)
+
+app.get("/user",userAuth,(req,res)=> {
+
+    res.send("welcome user")
 })
 
+app.get("/admin/getAllData",(req,res)=>{
 
-app.get("/user",(req,res)=>{
-    res.send({firstname:"Naman",lastname:"Joshi"})
+    res.send("Sent All Data")  
+ 
 })
 
-app.post("/user",(req,res)=>{
-    res.send("Data successfullysaved to database")
-})
-app.delete("/user",(req,res)=>{
-    res.send("Deleted Successfully")
-})
+app.get("/admin/deleteAllData",(req,res)=>{
 
+    res.send("All data deleted")
+    
+ })
 
-app.use("/test",(req,res)=>{
-    res.send("Hello from /test")
-})
-
-
-
-app.listen(7777,()=>{
-    console.log("Server is succcessfully created")
+app.listen(7777,() => {
+    console.log("server is successfully created")
 })
